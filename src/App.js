@@ -9,7 +9,6 @@ class App extends Component {
 
     componentDidMount = () => {
         this.hydrateStateWithLocalStorage();
-
         window.addEventListener(
             "beforeunload",
             this.saveStateToLocalStorage.bind(this)
