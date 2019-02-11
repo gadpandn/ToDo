@@ -76,17 +76,19 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <input type="text" onChange={this.showText} value={this.state.text}></input>
-                <button onClick={this.addToList}>Add</button>
+            <div className="App jumbotron container ">
+                <div class="addTodo">
+                <input type="text" className="col-sm-6" onChange={this.showText} value={this.state.text}></input>
+                <button className="add btn btn-info" onClick={this.addToList}>Add</button>
+                </div>
                 {
                     this.state.todoList.map((todoItem, index) => {
                             return (
-                                <div key={index}>
+                                <div key={index} className="todoItem">
                                     <input type="checkbox" defaultChecked={todoItem.completed ? true : false}
-                                           onClick={this.completedTodo.bind(this, index)}/>
+                                           onClick={this.completedTodo.bind(this, index)} />
                                     <span className={todoItem.completed ? "strike" : ""}>{todoItem.item}</span>
-                                    <button onClick={this.deleteTodo.bind(this, index)}>x</button>
+                                    <button className="btn btn-danger" onClick={this.deleteTodo.bind(this, index)}>x</button>
                                 </div>
                             )
                         }

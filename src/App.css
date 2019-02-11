@@ -4,3 +4,26 @@
 .strike {
   text-decoration: line-through;
 }
+
+.App input {
+
+}
+
+.addTodo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.todoItem {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+.todoItem span {
+  margin: 0 1rem;
+  flex-basis: 47%;
+}
+.todoItem button {
+
+}
