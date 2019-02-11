@@ -2,12 +2,14 @@
   "name": "todo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://gadpandn.github.io/todo.io/",
+  "homepage": "https://gadpandn.github.io/todo",
   "dependencies": {
+    "bootstrap": "^4.2.1",
     "gh-pages": "^2.0.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-scripts": "2.1.3"
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
+    "react-scripts": "2.1.3",
+    "reactstrap": "^7.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -16,7 +18,6 @@
     "eject": "react-scripts eject",
     "deploy": " npm run build && gh-pages -d build"
   },
-
   "eslintConfig": {
     "extends": "react-app"
   },
