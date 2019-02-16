@@ -4,7 +4,7 @@ import './App.css';
 class App extends Component {
     state = {
         text: "",
-        todoList: []
+        todoList: [],
     };
 
     componentDidMount = () => {
@@ -24,7 +24,6 @@ class App extends Component {
     };
 
     saveStateToLocalStorage() {
-
         localStorage.setItem('todoList', JSON.stringify(this.state['todoList']));
     }
 
@@ -44,8 +43,7 @@ class App extends Component {
 
     addToList = () => {
         var todoList = [...this.state.todoList];
-        todoList.push({item: this.state.text, completed: false});
-
+        todoList.push({item: this.state.text, completed: false,hover:false});
         this.setState({
             todoList,
             text: ""
@@ -59,50 +57,78 @@ class App extends Component {
             todoList
         });
     };
-
-    completedTodo = (index) => {
+    handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            this.showText(event);
+            this.addToList()
+        }
+    };
+    hoverOn = (index) => {
         let todoList = [...this.state.todoList]
             .map((todoItem, indexOfItem) => {
                 if (indexOfItem === index) {
-                    todoItem.completed = todoItem.completed ? false : true
+                    todoItem.hover = true
                 }
                 return todoItem;
             });
-
         this.setState({
             todoList
-        });
+        })
     };
-
-    render() {
-        return (
-            <div className="App jumbotron container ">
-                <div class="addTodo">
-                <input type="text" className="col-sm-6" onChange={this.showText} value={this.state.text}></input>
-                <button className="add btn btn-info" onClick={this.addToList}>Add</button>
-                </div>
-                {
-                    this.state.todoList.map((todoItem, index) => {
-                            return (
-                                <div key={index} className="todoItem">
-                                    <input type="checkbox" defaultChecked={todoItem.completed ? true : false}
-                                           onClick={this.completedTodo.bind(this, index)} />
-                                    <span className={todoItem.completed ? "strike" : ""}>{todoItem.item}</span>
-                                    <button className="btn btn-danger" onClick={this.deleteTodo.bind(this, index)}>x</button>
-                                </div>
-                            )
-                        }
-                    )
+    hoverOff = (index) => {
+        let todoList = [...this.state.todoList]
+            .map((todoItem, indexOfItem) => {
+                if (indexOfItem === index) {
+                    todoItem.hover = false
                 }
-            </div>
-        );
+                return todoItem;
+            });
+        this.setState({
+            todoList
+        })
+    };
+        completedTodo = (index) => {
+            let todoList = [...this.state.todoList]
+                .map((todoItem, indexOfItem) => {
+                    if (indexOfItem === index) {
+                        todoItem.completed = !todoItem.completed
+                    }
+                    return todoItem;
+                });
+
+            this.setState({
+                todoList
+            });
+        };
+
+        render()
+        {
+            return (
+                <div className="App jumbotron container ">
+                    <div className="addTodo">
+                        <input type="text" className="col-sm-6" onChange={this.showText} value={this.state.text}
+                               onKeyPress={this.handleKeyPress.bind(this)}/>
+                        <button className="add btn btn-info" onClick={this.addToList}>Add</button>
+                    </div>
+                    {
+                        this.state.todoList.map((todoItem, index) => {
+                                return (
+                                    <div key={index} className="todoItem" onMouseEnter={this.hoverOn.bind(this, index)}
+                                         onMouseLeave={this.hoverOff.bind(this, index)}>
+                                        <input type="checkbox" defaultChecked={todoItem.completed}
+                                               onClick={this.completedTodo.bind(this, index)}
+                                               className={todoItem.hover ? "show" : "hide"}/>
+                                        <div className={todoItem.completed ? "strike" : ""}>{todoItem.item}</div>
+                                        <button className={`btn btn-danger ${todoItem.hover ? "show" : "hide"}`}
+                                                onClick={this.deleteTodo.bind(this, index)}>x
+                                        </button>
+                                    </div>
+                                )
+                            }
+                        )
+                    }
+                </div>
+            );
+        }
     }
-}
-
-function ShowText(prop) {
-    return (
-        <p>{prop.text}</p>
-    )
-}
-
-export default App;
+    export default App;

@@ -5,10 +5,6 @@
   text-decoration: line-through;
 }
 
-.App input {
-
-}
-
 .addTodo {
   display: flex;
   justify-content: center;
@@ -16,14 +12,19 @@
 }
 .todoItem {
   display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
+  justify-content: space-around;
   align-items: center;
+  width: 55%;
+  margin: auto auto 1rem auto;
+  padding: 0.5rem;
 }
 .todoItem span {
   margin: 0 1rem;
   flex-basis: 47%;
 }
-.todoItem button {
-
+.todoItem .hide {
+display: none;
+}
+.todoItem .show {
+  display: block;
 }
