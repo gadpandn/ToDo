@@ -43,7 +43,9 @@ class App extends Component {
 
     addToList = () => {
         var todoList = [...this.state.todoList];
-        todoList.push({item: this.state.text, completed: false,hover:false});
+        if(this.state.text) {
+            todoList.push({item: this.state.text, completed: false, hover: false});
+        }
         this.setState({
             todoList,
             text: ""
@@ -114,7 +116,7 @@ class App extends Component {
                         this.state.todoList.map((todoItem, index) => {
                                 return (
                                     <div key={index} className="todoItem" onMouseEnter={this.hoverOn.bind(this, index)}
-                                         onMouseLeave={this.hoverOff.bind(this, index)}>
+                                         onMouseLeave={this.hoverOff.bind(this, index)} onTouchStart={this.hoverOn.bind(this, index)} onTouchEnd={this.hoverOff.bind(this, index)}>
                                         <input type="checkbox" defaultChecked={todoItem.completed}
                                                onClick={this.completedTodo.bind(this, index)}
                                                className={todoItem.hover ? "show" : "hide"}/>
